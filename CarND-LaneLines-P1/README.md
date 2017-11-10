@@ -9,6 +9,7 @@ My pipeline consisted of 3 steps:
 + Step 2: Here I utilize Canny's algorithm to retain edges in the bottom rectangle region 
 
 + Step 3: In this step, after receiving line segments from Hough transformation, we need to detect two average lines corresponding to two lanes from these segments. In order to do that, I first cluster the line segments based on their slopes and intercepts using k-means with k=2. I have used clustering here to take into account of the cases both slopes are negative or positive which can happens in other situations eventhough in our our test cases, one slope is positive and another one is negative.
+
  After clustering to extract the average lane lines, I proceed to remove segment outliers. This is done based on computing the distance of segment endpoints to the average lane lines. After removing all the outliers, I recompute the average lane lines.
 
 
