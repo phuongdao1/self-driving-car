@@ -19118,7 +19118,10 @@ dAMAAEARRTcAAAAUUXQDAABAkX8B3yidc2ruBcsAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here I utilize Keras to build my CNN architecture. It consists of 6 convolutional layers with increasing depth. I also utilize a max pooling and a dropout after each pair of convolutional layers. Followed the convolutional layers is 2 dense layers:</p>
+<p>Here I utilize Keras to build my CNN architecture. I have try to model according to VGG architecture with stacked 3x3 convolutional layers with increasing depth. 
+So my architecture consists of 6 convolutional layers with increasing depth. There are three pairs of stacked convolutional layers of kernel 3x3. According to VGGNet, they utilized kernel size 3x3 back to back to replace a kernel size 7x7 or 11x11 and increase the depth of the networks learn more complex data structure. Here I have tried using kernel size 5x5 back to back as well. The training time is increasing however my validation and test accuracy are decreased. Since we have small image size, the kernel size 3x3 is sufficient.</p>
+<p>I also utilize a max poolingafter each pair of convolutional layers. A dropout layer is followed to model an adverserial enviroment to make the networks trainning better. The dropout probability is set to 0.2 or 0.3 in earlier convolutional layers and 0.4 in the last convolutional layers. I tried to set the dropout probability of earlier layers to 0.4 or 0.5 as well, however, the network is training slow and the accuracy is decreasing significantly. It could be the case that our image is small, a high drop out rate results in losing many important features.</p>
+<p>Followed the convolutional layers is 2 dense layers, one is of size 256 and one is equal to the number of classes. Decreasing the size of the first dense layer  results in decreasing the performance while increasing the size of the first dense layer does not seems to improve the accuracy.</p>
 
 </div>
 </div>
@@ -19257,7 +19260,8 @@ _________________________________________________________________
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here I do 20 training epochs with batch size is around 256. After that, we evaluate our model on the validation dataset:</p>
+<p>Here I choose to train with 20 training epochs and batch size is 256. I haven't played with the batch size that much except for increasing it to 512 or decrease it to 128. I didn't notice much difference in performance given other paramters fixed. For the number of training epochs, reducing it to 10 or 5 did not yield the high accuracy on validation test as 20. If I increased the number of training epochs to 40 or 50, I noticed my validation performance flunctating and decreased a bit compared to less number of epochs so 20 seems a sufficient number.</p>
+<p>After that, we evaluate our model on the testing dataset.</p>
 
 </div>
 </div>
@@ -19823,6 +19827,15 @@ hBBCCCGEECJFtNEWQgghhBBCCCFS5P8Dn8gjq+ohHrIAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Predict-the-Sign-Type-for-Each-Image">Predict the Sign Type for Each Image<a class="anchor-link" href="#Predict-the-Sign-Type-for-Each-Image">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I think the classifier won't have hard time to classify 4 of these images except for number 3 above ("turn right ahead"). The other four images are quite clean. The sign "turn right ahead" have the top part in shadow that is something new for the classifier.</p>
+
 </div>
 </div>
 </div>
